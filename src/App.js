@@ -43,7 +43,7 @@ function App() {
         <Router>
         <PersistGate persistor={persistor} />
           <Switch>
-            <PrivateRoute exact path='/' component={Customers}></PrivateRoute>
+            <Route exact path='/' component={Customers}></Route>
             <Route exact path='/login' component={Login}></Route>
             {/* <Route exact path='/register' component={Register}></Route>
             <Route exact path='/forgot' component={Forgot}></Route>

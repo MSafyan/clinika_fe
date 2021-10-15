@@ -32,7 +32,8 @@ if (getJwt()) {
 // });
 // export const url='http://volantestrapi-env.eba-kzqbnykc.us-east-1.elasticbeanstalk.com';
 // export const url='http://localhost:1337';
-export const url='https://clinika2.herokuapp.com';
+// export const url='https://clinika2.herokuapp.com';
+export const url='https://admin-lunar-rpm.herokuapp.com';
 
 export { setAuthHeader };
 

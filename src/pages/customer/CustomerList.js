@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
     }
 }))
 
-function CustomerList({CUSTOMER_LIST,history,token}) {
+function CustomerList({CUSTOMER_LIST,history,token,redirect}) {
 
     const classes = useStyles();
     // const [records] = useState(employeeService.getAllEmployees())
@@ -45,7 +45,11 @@ function CustomerList({CUSTOMER_LIST,history,token}) {
 
         //     },1000)
         // }
-        CUSTOMER_LIST()
+        CUSTOMER_LIST().then(()=>{
+            // if(redirect.length>0){
+            //     history.push(redirect);
+            // }
+        })
 
           // eslint-disable-next-line
     },[])
@@ -80,7 +84,8 @@ function CustomerList({CUSTOMER_LIST,history,token}) {
 
 const mapStateToProps = state => ({
     customerList:state.customer.customerList,
-    token:state.auth.token
+    token:state.auth.token,
+    redirect:state.customer.redirect
 });
 
 export default connect(

@@ -1,7 +1,7 @@
 import axios,{url} from './customAxios';
 // axios.defaults.withCredentials = true;
 
-// import { history } from '../store';
+import { history } from '../store';
 import {
   NEW_CUSTOMER_SUCCESS,
   NEW_CUSTOMER_FAIL,
@@ -20,7 +20,8 @@ import {
   CUSTOMER_INFO_SUCCESS,
   CUSTOMER_INFO_FAIL,
   CUSTOMER_EMAIL_SUCCESS,
-  NOT_LOADING_CUSTOMER
+  NOT_LOADING_CUSTOMER,
+  REDIRECT_SUCCESS,
 } from './types';
 
 import { toast } from "react-toastify";
@@ -143,14 +144,22 @@ export const CUSTOMER_UPDATE = (form_data) => async (dispatch,getState) => {
 };
 
 export const CUSTOMER_LIST = () => async (dispatch,getState) => {
-  const {id} = getState().auth.user;
+  const id = getState().auth.user?.id;
+  console.log(id)
 	try {
     dispatch({ type: SET_LOADING_CUSTOMER });
+    if(id){
+      const res = await axios.get(`${url}/patients?users_permissions_user_eq=${id}`);
+      dispatch({ type: CUSTOMER_LIST_SUCCESS, payload: res.data });
+    }
+    history.push('/')
+    
+    dispatch({ type: CUSTOMER_LIST_SUCCESS, payload: [] });
+    dispatch({ type: REDIRECT_SUCCESS, payload: {route:'/login'} });
+    toast.warn('Login again....')
 
-		const res = await axios.get(`${url}/patients?users_permissions_user_eq=${id}`);
     // console.log(res.data);
 
-		dispatch({ type: CUSTOMER_LIST_SUCCESS, payload: res.data });
 	} catch (error) {
 
 		dispatch({ type: CUSTOMER_LIST_FAIL});

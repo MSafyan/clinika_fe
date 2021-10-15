@@ -1,3 +1,4 @@
+import {history} from './store';
 import './App.css';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { ThemeProvider } from '@material-ui/core/styles';
@@ -25,7 +26,6 @@ import Test from './pages/test';
 
 import PrivateRoute from './components/routing/PrivateRoute';
 import theme from './theme';
-// import history from './store';
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -40,7 +40,7 @@ function App() {
 		<div className='App'>
       <Provider store={store}>
       <ThemeProvider theme={theme}>
-        <Router>
+        <Router history={history}>
         <PersistGate persistor={persistor} />
           <Switch>
             <Route exact path='/' component={Customers}></Route>

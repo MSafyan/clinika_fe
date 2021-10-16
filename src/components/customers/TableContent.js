@@ -166,7 +166,7 @@ const TableContent = ({EMPLOYEE_LIST,CUSTOMER_EDIT,customerList,loading,history,
 					</TableFooter>
 				</>
 			) : (
-				<h3>Loading...</h3>
+				<h3>Loading... OR No Record found</h3>
 			)}
 		</div>
 	);

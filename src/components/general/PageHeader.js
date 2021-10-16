@@ -2,6 +2,9 @@ import React from 'react'
 import { Paper, Card, Typography,Button, makeStyles } from '@material-ui/core'
 import Link from '@material-ui/core/Link';
 
+import { connect } from "react-redux";
+import {NOTLOADING_CUSTOMER} from '../../actions/customerAction'
+
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -33,10 +36,10 @@ const useStyles = makeStyles(theme => ({
     }
 }))
 
-export default function PageHeader(props) {
+const PageHeader=(props)=> {
 
     const classes = useStyles();
-    const { title, subTitle, icon, history } = props;
+    const { title, subTitle, icon, history,NOTLOADING_CUSTOMER } = props;
     return (
         <Paper elevation={0} square className={classes.root}>
             <div className={classes.pageHeader}>
@@ -54,7 +57,10 @@ export default function PageHeader(props) {
                         {subTitle}</Typography>
                 </div>
             </div>
-            <Link onClick={()=>history.push('/newcustomer')}>
+            <Link onClick={()=>{
+                history.push('/newcustomer')
+                NOTLOADING_CUSTOMER()
+                }}>
                 <Button className={classes.newPatient} variant='contained'>
                     New Patient
                 </Button>
@@ -62,3 +68,9 @@ export default function PageHeader(props) {
         </Paper>
     )
 }
+
+
+export default connect(
+    null,
+    { NOTLOADING_CUSTOMER }
+)(PageHeader);

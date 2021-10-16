@@ -169,7 +169,7 @@ const Index = (props) => {
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
             Dashboard
           </Typography>
-          <Link href='/' style={{ textDecoration: 'none' }}>
+          <Link href='/customers' style={{ textDecoration: 'none' }}>
 							<Button variant='cantained' className={classes.getStartMobile}>
 								All Patients
 							</Button>

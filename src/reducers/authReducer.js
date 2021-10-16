@@ -6,6 +6,7 @@ import {
 	SET_LOADING_AUTH,
 	NOT_LOADING_AUTH,
 	SIGN_IN_FAIL,
+	REDIRECT_SUCCESS
 } from "../actions/types";
 
 const INITAL_AUTH_STATE = {
@@ -15,6 +16,7 @@ const INITAL_AUTH_STATE = {
 	loading: false,
 	error: null,
 	alert: null,
+	redirect:null
 };
 
 export default function authReducer(
@@ -29,16 +31,19 @@ export default function authReducer(
 				loading:false,
 				user: action.payload,
 				isAuthenticated: true,
+				redirect:null
 			};
 		case SIGN_UP_FAIL:
 		case SIGN_IN_FAIL:
 		case LOGOUT_SUCCESS:
+		case REDIRECT_SUCCESS:
 			return {
 				...state,
 				loading:false,
 				user: null,
 				isAuthenticated: false,
 				token: null,
+				redirect:null
 			};
 		case SET_LOADING_AUTH:
 			return {

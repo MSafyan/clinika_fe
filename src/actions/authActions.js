@@ -15,7 +15,8 @@ import {
 	LOGOUT_SUCCESS,
 	LOGOUT_FAIL,
 	SET_LOADING_AUTH,
-	NOT_LOADING_AUTH
+	NOT_LOADING_AUTH,
+	REDIRECT_SUCCESS
 } from './types';
 import { toast } from "react-toastify";
 

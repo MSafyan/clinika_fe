@@ -10,6 +10,8 @@ else if(error.response.data==="Not found"){
 	return toast.warn("server error");
 }else if(error.response.data.error==="Unauthorized"){
 	return toast.warn("Login again");
+}else if(error.response.data.error==="Internal Server Error"){
+	return toast.warn("Internal Server Error");
 }
 else{
 	const msg=error.response?.data?.message[0]?.messages[0]?.message || "server error"

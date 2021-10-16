@@ -5,12 +5,18 @@ import { persistStore } from 'redux-persist';
 
 import { createBrowserHistory } from 'history';
 
+import {
+	connectRouter,
+	routerMiddleware,
+	RouterState,
+} from 'connected-react-router';
 
 import rootReducer from './reducers';
 
 const initialState = {};
 
-const middleware = [thunk];
+export const history = createBrowserHistory();
+const middleware = [routerMiddleware(history),thunk];
 
 export const store = createStore(
   rootReducer,
@@ -19,6 +25,3 @@ export const store = createStore(
   );
   
   export const persistor = persistStore(store);
-  
-  // export const store=store;
-  export const history = createBrowserHistory();

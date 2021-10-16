@@ -17,7 +17,7 @@ import {
 	CUSTOMER_YEARLY_SUCCESS,
 	CUSTOMER_EMAIL_SUCCESS,
 	NOT_LOADING_CUSTOMER,
-	REDIRECT_SUCCESS
+	CUSTOMER_EDIT_CLEAR
 } from "../actions/types";
 
 const INITAL_AUTH_STATE = {
@@ -49,12 +49,6 @@ export default function authReducer(
 				...state,
 				loading: false,
 				customer: action.payload,
-			};
-		case REDIRECT_SUCCESS:
-			return {
-				...state,
-				loading: false,
-				redirect: action.payload,
 			};
 		case CUSTOMER_LIST_SUCCESS:
 		case CUSTOMER_FIND_SUCCESS:

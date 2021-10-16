@@ -144,7 +144,8 @@ const TableContent = ({EMPLOYEE_EDIT,employeeList,loading,history,DELETE}) => {
 					</TableFooter>
 				</>
 			) : (
-				<h3>Loading...</h3>
+				<><h3>Loading...</h3>
+				<h3>Or No Record Found</h3></>
 			)}
 		</div>
 	);

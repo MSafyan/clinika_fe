@@ -21,7 +21,7 @@ import {
   CUSTOMER_INFO_FAIL,
   CUSTOMER_EMAIL_SUCCESS,
   NOT_LOADING_CUSTOMER,
-  REDIRECT_SUCCESS,
+  LOGOUT_SUCCESS
 } from './types';
 
 import { toast } from "react-toastify";
@@ -126,8 +126,12 @@ export const CUSTOMER_UPDATE = (form_data) => async (dispatch,getState) => {
     };
 
 		const res = await axios.put(`${url}/patients/${patientID}`, data);
-    dispatch({ type: CUSTOMER_UPDATE_SUCCESS, payload: res.data });
-    toast.success("Patient updated scuccessfully...");
+    if(res.data.msg==='exist'){
+      toast.warn(res.data.message);
+    }else{
+      dispatch({ type: CUSTOMER_UPDATE_SUCCESS, payload: res.data });
+      toast.success("Patient updated scuccessfully...");
+    }
 
   const {id} = getState().auth.user;
 
@@ -152,11 +156,14 @@ export const CUSTOMER_LIST = () => async (dispatch,getState) => {
       const res = await axios.get(`${url}/patients?users_permissions_user_eq=${id}`);
       dispatch({ type: CUSTOMER_LIST_SUCCESS, payload: res.data });
     }
-    history.push('/')
-    
-    dispatch({ type: CUSTOMER_LIST_SUCCESS, payload: [] });
-    dispatch({ type: REDIRECT_SUCCESS, payload: {route:'/login'} });
-    toast.warn('Login again....')
+    else{
+      // history.push('/login')
+      
+      dispatch({ type: CUSTOMER_LIST_SUCCESS, payload: [] });
+      dispatch({ type: LOGOUT_SUCCESS});
+      toast.warn('Login again....')
+
+    }
 
     // console.log(res.data);
 
@@ -242,6 +249,10 @@ export const CUSTOMER_FIND = (form_data) => async (dispatch,getState) => {
         res = await axios.get(`${url}/patients/${form_data.searchTerm}?users_permissions_user_eq=${id}`);
         dispatch({ type: CUSTOMER_FIND_SUCCESS, payload:[ res.data] });
 
+      }
+    else if(form_data.searchBy==='imei' || form_data.searchBy==='phoneNumber' ){
+        res = await axios.get(`${url}/patients?${form_data.searchBy}_eq=${form_data.searchTerm}&&users_permissions_user_eq=${id}`);
+        dispatch({ type: CUSTOMER_FIND_SUCCESS, payload: res.data });
       }
     else{
         res = await axios.get(`${url}/patients?${form_data.searchBy}_contains=${form_data.searchTerm}&&users_permissions_user_eq=${id}`);
